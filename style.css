@@ -76,7 +76,11 @@ body {
 }
 
 footer {
-     margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
 }
 
 @media (max-width: 768px) {
