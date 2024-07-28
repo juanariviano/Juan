@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.topBottom {
+    margin: 20px 0;
+}
+
+h1 {
+    line-height: 40px;
+    font-size: 50px;
+}
+ 
+h2 {
+    line-height: 36px;
+}
+
+
+body {
+    font-family: "NTR", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.about {
+    width: 700px;
+}
+
+.about p {
+    text-align: justify;
+}
+
+.about ul li {
+    list-style-type: decimal;
+    margin-left: 40px;
+}
+
+.project {
+    width: 700px;
+}
+
+.project ul li {
+    margin-left: 40px;
+    list-style-type: decimal;
+}
+
+.experience {
+    width: 700px;
+}
+
+.experience ul li {
+    list-style-type: decimal;
+    margin-left: 40px;
+}
+
+.experience ul a {
+    margin-left: 40px;
+}
+
+footer {
+     margin: 30px;
+}
