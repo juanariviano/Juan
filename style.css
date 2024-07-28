@@ -21,6 +21,7 @@ body {
     font-family: "NTR", sans-serif;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin-top: 30px;
 }
@@ -76,4 +77,42 @@ body {
 
 footer {
      margin: 30px;
+}
+
+@media (max-width: 768px) {
+    .about {
+        width: 500px;
+    }
+
+    .project {
+        width: 500px;
+    }
+
+    .experience {
+        width: 500px;
+    }
+
+    h1 {
+        line-height: 40px;
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 440px) {
+    .about {
+        width: 300px;
+    }
+
+    .project {
+        width: 300px;
+    }
+
+    .experience {
+        width: 300px;
+    }
+
+    h1 {
+        line-height: 40px;
+        font-size: 40px;
+    }
 }
