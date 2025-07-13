@@ -10,8 +10,7 @@ const Introduction = () => {
           Bina Nusantara University (BINUS) with a strong passion for
           technology. Since a young age, I have been fascinated by computers and
           their limitless potential, driving me to explore various fields in
-          computer science, including programming, software development,
-          cybersecurity, and artificial intelligence. At BINUS, I actively
+          computer science, including programming, web development, software development, and artificial intelligence. At BINUS, I actively
           engage in both academic and extracurricular activities to enhance my
           knowledge and skills. I aspire to keep learning, growing, and
           contributing positively to the tech community. Excited for future

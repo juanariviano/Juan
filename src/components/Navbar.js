@@ -1,22 +1,24 @@
 import React from "react";
 import "../style/tailwind.css";
+import gif from "../bread.gif"
 
 const Navbar = () => {
   return (
     <div className="row-[span_10/_span_10] max-xl:row-span-0 max-xl:col-span-5">
       <div className="fixed max-xl:relative">
-        <h2 className="text-xl">Juan</h2>
-        <h2 className="text-xl">Ariviano</h2>
-        <h2 className="text-xl">Chandra</h2>
-        <p className="text-xs mt-2 mb-4">Computer Science Student</p>
+        <img src={gif} className="w-7"/>
+        <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Juan</h2>
+        <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Ariviano</h2>
+        <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Chandra</h2>
+        <p className="text-xs mt-2 mb-4 max-sm:text-base max-lg:text-sm">Computer Science Student</p>
         <div className="flex flex-col mb-4 max-xl:flex-row max-xl:gap-3">
-          <div>
-            <input type="radio" />
-            <label>No CSS</label>
+          <div className="flex items-center">
+            <input type="radio" name="style"/>
+            <label className="ml-2">No CSS</label>
           </div>
-          <div>
-            <input type="radio" />
-            <label>CSS</label>
+          <div className="flex items-center">
+            <input type="radio" name="style"/>
+            <label className="ml-2">CSS</label>
           </div>
         </div>
         <div className="flex flex-col flex-wrap gap-3 max-xl:flex-row max-xl:gap-3 max-xl:mt-10 max-xl:mb-[60px]">

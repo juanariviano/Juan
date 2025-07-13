@@ -21,6 +21,7 @@ const Top = () => {
     <div className="font-mono fixed top-0 w-full z-50 max-sm:py-0 bg-white dark:bg-black">
       <div className="dark:bg-black flex justify-between px-[100px] mt-3 max-lg:px-5 max-lg:items-center dark:bg-black bg-white z-80 max-sm:h-[50px] max-sm:mt-0 max-sm:relative max-sm:z-[80]">
         <h3 className="font-bold">Hi, I'm Juan</h3>
+        
         <div className="flex items-center gap-5">
           <a
             className="text-blue-900 underline dark:text-blue-600"
@@ -51,13 +52,13 @@ const Top = () => {
           `}
       >
         <div className="flex gap-5 pt-5 px-5">
-          <div>
-            <input type="radio" />
-            <label>No CSS</label>
+          <div className="flex items-center">
+            <input type="radio" name="style"/>
+            <label className="ml-2">No CSS</label>
           </div>
-          <div>
-            <input type="radio" />
-            <label>CSS</label>
+          <div className="flex items-center">
+            <input type="radio" name="style"/>
+            <label className="ml-2">CSS</label>
           </div>
         </div>
         <div className="flex flex-col gap-5 px-5">
