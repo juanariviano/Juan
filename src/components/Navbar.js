@@ -4,7 +4,7 @@ import gif from "../bread.gif"
 
 const Navbar = () => {
   return (
-    <div className="row-[span_10/_span_10] max-xl:row-span-0 max-xl:col-span-5">
+    <div className="row-[span_11/_span_11] max-xl:row-span-0 max-xl:col-span-5">
       <div className="fixed max-xl:relative">
         <img src={gif} className="w-7"/>
         <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Juan</h2>
