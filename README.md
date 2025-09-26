@@ -8,13 +8,13 @@ This is a personal portfolio website built with **React.js** and
 1.  Clone the repository:
 
     ``` bash
-    git clone https://github.com/yourusername/juan.git
+    git clone https://github.com/juanariviano/Juan.git
     ```
 
 2.  Navigate into the project directory:
 
     ``` bash
-    cd juan
+    cd Juan
     ```
 
 3.  Install dependencies:
