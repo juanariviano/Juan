@@ -36,4 +36,11 @@ export const projectapps = [
       github: "https://github.com/juanariviano/DiagnoAI",
         deploy: "none",
     },
+    {
+      id: 5,
+      name: "Asphatl9",
+      description: "Asphalt9 Website Clone",
+      github: "https://juanariviano.github.io/Asphatl9/",
+        deploy: "https://juanariviano.github.io/Asphatl9/",
+    },
   ];
