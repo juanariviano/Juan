@@ -40,7 +40,7 @@ export const projectapps = [
       id: 5,
       name: "Asphatl9",
       description: "Asphalt9 Website Clone",
-      github: "https://juanariviano.github.io/Asphatl9/",
+      github: "https://github.com/juanariviano/Asphatl9",
         deploy: "https://juanariviano.github.io/Asphatl9/",
     },
   ];
