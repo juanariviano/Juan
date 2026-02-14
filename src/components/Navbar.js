@@ -4,14 +4,14 @@ import gif from "../bread.gif"
 
 const Navbar = ({ onDarkModeToggle }) => {
   return (
-    <div className="row-[span_11/_span_11] max-xl:row-span-0 max-xl:col-span-5">
+    <div className="row-[span_11/_span_11] max-xl:row-span-0 max-xl:col-span-3">
       <div className="fixed max-xl:relative">
-        <img src={gif} className="w-7"/>
+        <img src={gif} className="w-7" alt="gif"/>
         <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Juan</h2>
         <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Ariviano</h2>
         <h2 className="text-xl max-sm:text-2xl max-lg:text-xl">Chandra</h2>
         <p className="text-xs mt-2 mb-4 max-sm:text-base max-lg:text-sm">Computer Science Student</p>
-        <div className="flex flex-col mb-4 max-xl:flex-row max-xl:gap-3">
+        {/* <div className="flex flex-col mb-4 max-xl:flex-row max-xl:gap-3">
           <div className="flex items-center">
             <input 
               type="radio" 
@@ -31,7 +31,7 @@ const Navbar = ({ onDarkModeToggle }) => {
             />
             <label htmlFor="dark" className="ml-2 cursor-pointer">Light</label>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col flex-wrap gap-3 max-xl:flex-row max-xl:gap-3 max-xl:mt-10 max-xl:mb-[60px]">
           <p className="text-blue-900 underline cursor-pointer dark:text-blue-600">
             <a href="#intro">[Introduction]</a>

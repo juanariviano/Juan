@@ -46,12 +46,12 @@ const Top = () => {
       {/* Mobile Navbar */}
       <div
         ref={navRef}
-        className={`fixed flex flex-col gap-5 h-[100vh] w-full bg-white dark:bg-black z-10 duration-300 ease-in ${
+        className={`fixed flex flex-col gap-5 h-[100vh] w-full bg-white dark:bg-black z-10 duration-500 ease-in ${
           isNavbarShown ? 'top-[51px]' : '-top-[100vh]'
         }
           `}
       >
-        <div className="flex gap-5 pt-5 px-5">
+        {/* <div className="flex gap-5 pt-5 px-5">
           <div className="flex items-center">
             <input type="radio" name="style"/>
             <label className="ml-2">No CSS</label>
@@ -60,9 +60,9 @@ const Top = () => {
             <input type="radio" name="style"/>
             <label className="ml-2">CSS</label>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col gap-5 px-5">
-          <p className="text-blue-900 underline cursor-pointer dark:text-blue-600">
+          <p className="text-blue-900 underline cursor-pointer dark:text-blue-600 mt-7">
             <a onClick={showNavbar} href="#intro">[Introduction]</a>
           </p>
           <p className="text-blue-900 underline cursor-pointer dark:text-blue-600">

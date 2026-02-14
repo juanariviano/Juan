@@ -3,7 +3,7 @@ import "../style/tailwind.css";
 
 const Experience = () => {
   return (
-    <div className="col-span-4 max-xl:col-span-5">
+    <div className="col-span-3 max-xl:col-span-3">
       <div className="flex flex-col gap-1 mb-10">
         <div>
           <h3 className="font-semibold">
