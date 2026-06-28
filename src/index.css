@@ -1,17 +1,230 @@
-html {
-  scroll-behavior: smooth;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --ng-bg: #f5f5f5;
+    --ng-bg2: #ebebeb;
+    --ng-bg3: #e0e0e0;
+    --ng-fg: #0a0a0a;
+    --ng-text2: rgba(0, 0, 0, 0.55);
+    --ng-text3: rgba(0, 0, 0, 0.38);
+    --ng-border: rgba(0, 0, 0, 0.08);
+    --ng-border2: rgba(0, 0, 0, 0.14);
+    --ng-terminal: #ececec;
+    --ng-muted: #737373;
+    --ng-muted-l: #525252;
+    --ng-accent: #0a0a0a;
+    --ng-accent-fg: #fafafa;
+    --ng-surface: rgba(0, 0, 0, 0.04);
+    --ng-surface-hover: rgba(0, 0, 0, 0.07);
+    --ng-grid: rgba(0, 0, 0, 0.07);
+    --ng-grid-subtle: rgba(0, 0, 0, 0.05);
+    --ng-glow: rgba(0, 0, 0, 0.05);
+    --ng-terminal-out: #525252;
+    --ng-terminal-out2: #0a0a0a;
+    --ng-badge-dot-light: #0a0a0a;
+    --ng-badge-dot-mid: #737373;
+    --ng-badge-dot-muted: #a3a3a3;
+    --ng-nav-bg: rgba(245, 245, 245, 0.9);
+  }
+
+  .dark {
+    color-scheme: dark;
+    --ng-bg: #0a0a0a;
+    --ng-bg2: #111111;
+    --ng-bg3: #181818;
+    --ng-fg: #fafafa;
+    --ng-text2: rgba(255, 255, 255, 0.55);
+    --ng-text3: rgba(255, 255, 255, 0.35);
+    --ng-border: rgba(255, 255, 255, 0.08);
+    --ng-border2: rgba(255, 255, 255, 0.14);
+    --ng-terminal: #050505;
+    --ng-muted: #a3a3a3;
+    --ng-muted-l: #d4d4d4;
+    --ng-accent: #fafafa;
+    --ng-accent-fg: #0a0a0a;
+    --ng-surface: rgba(255, 255, 255, 0.04);
+    --ng-surface-hover: rgba(255, 255, 255, 0.07);
+    --ng-grid: rgba(255, 255, 255, 0.08);
+    --ng-grid-subtle: rgba(255, 255, 255, 0.03);
+    --ng-glow: rgba(255, 255, 255, 0.07);
+    --ng-terminal-out: #a3a3a3;
+    --ng-terminal-out2: #fafafa;
+    --ng-badge-dot-light: #fafafa;
+    --ng-badge-dot-mid: #a3a3a3;
+    --ng-badge-dot-muted: #525252;
+    --ng-nav-bg: rgba(10, 10, 10, 0.9);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ng-bg text-ng-fg antialiased font-sans transition-colors duration-200;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer utilities {
+  .section-px {
+    @apply px-7 sm:px-12 lg:px-20 xl:px-28 2xl:px-36;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--ng-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ng-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .grid-bg-subtle {
+    background-image:
+      linear-gradient(var(--ng-grid-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ng-grid-subtle) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .hero-glow {
+    background: radial-gradient(
+      ellipse,
+      var(--ng-glow) 0%,
+      transparent 68%
+    );
+  }
+
+  .cta-glow {
+    background: radial-gradient(
+      ellipse,
+      var(--ng-glow) 0%,
+      transparent 70%
+    );
+  }
+
+  .readme-prose {
+    @apply text-sm leading-relaxed text-ng-text2;
+  }
+
+  .readme-prose > *:first-child {
+    margin-top: 0;
+  }
+
+  .readme-prose > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .readme-prose h1,
+  .readme-prose h2,
+  .readme-prose h3,
+  .readme-prose h4 {
+    @apply font-semibold tracking-tight text-ng-fg;
+    margin: 1.25em 0 0.5em;
+  }
+
+  .readme-prose h1 {
+    @apply text-xl;
+  }
+
+  .readme-prose h2 {
+    @apply text-base;
+  }
+
+  .readme-prose h3 {
+    @apply text-sm;
+  }
+
+  .readme-prose p {
+    margin: 0.75em 0;
+  }
+
+  .readme-prose ul,
+  .readme-prose ol {
+    margin: 0.75em 0;
+    padding-left: 1.25rem;
+  }
+
+  .readme-prose ul {
+    list-style-type: disc;
+  }
+
+  .readme-prose ol {
+    list-style-type: decimal;
+  }
+
+  .readme-prose li {
+    margin: 0.25em 0;
+  }
+
+  .readme-prose a {
+    @apply text-ng-fg underline decoration-ng-border2 underline-offset-2 transition-colors hover:decoration-ng-fg;
+  }
+
+  .readme-prose code {
+    @apply rounded bg-ng-terminal px-1.5 py-0.5 font-mono text-[0.85em] text-ng-muted-l;
+  }
+
+  .readme-prose pre {
+    @apply my-4 overflow-x-auto rounded-lg border border-ng-border2 bg-ng-terminal p-4;
+  }
+
+  .readme-prose pre code {
+    @apply bg-transparent p-0 text-xs leading-relaxed text-ng-muted-l;
+  }
+
+  .readme-prose blockquote {
+    @apply my-4 border-l-2 border-ng-muted pl-4 italic text-ng-text3;
+  }
+
+  .readme-prose hr {
+    @apply my-6 border-ng-border;
+  }
+
+  .readme-prose strong {
+    @apply font-medium text-ng-fg;
+  }
+
+  .readme-prose .readme-table-wrap {
+    @apply my-4 overflow-x-auto rounded-lg border border-ng-border2;
+  }
+
+  .readme-prose table {
+    @apply w-full min-w-[420px] border-collapse text-left text-xs;
+  }
+
+  .readme-prose thead {
+    @apply bg-ng-surface;
+  }
+
+  .readme-prose th {
+    @apply border-b border-ng-border2 px-3 py-2.5 font-medium text-ng-fg;
+  }
+
+  .readme-prose td {
+    @apply border-b border-ng-border px-3 py-2.5 align-top text-ng-text2;
+  }
+
+  .readme-prose tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .readme-prose tbody tr:hover {
+    @apply bg-ng-surface;
+  }
 }

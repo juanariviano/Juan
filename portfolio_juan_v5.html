@@ -1,0 +1,362 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollX{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes termBlink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes glowPulse{0%,100%{opacity:.18}50%{opacity:.28}}
+@keyframes wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(20deg)}75%{transform:rotate(-10deg)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.ng{
+  --bg:#120e1a;--bg2:#1a1428;--bg3:#211832;
+  --purple:#7c5cbf;--purple-l:#a07ee0;--purple-ll:#c4a8f5;
+  --text:#ffffff;--text2:rgba(255,255,255,.55);--text3:rgba(255,255,255,.25);
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
+  --green:#3dd68c;
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  border-radius:12px;overflow:hidden;
+}
+
+/* NAV — logo only */
+.ng-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;border-bottom:0.5px solid var(--border);
+  position:relative;z-index:2;
+}
+.ng-logo{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.3px}
+.ng-logo span{color:var(--purple-l)}
+.ng-nav-links{display:flex;gap:20px;align-items:center}
+.ng-nav-links a{font-size:12px;color:var(--text2);cursor:pointer;text-decoration:none;transition:color .15s}
+.ng-nav-links a:hover{color:var(--text)}
+
+.ng-scroll{overflow-y:auto;max-height:640px;scroll-behavior:smooth}
+
+/* HERO */
+.ng-hero{
+  padding:64px 28px 56px;text-align:center;
+  position:relative;overflow:hidden;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.ng-hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(124,92,191,.3) 0%,transparent 68%);animation:glowPulse 4s ease infinite;pointer-events:none}
+.ng-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,92,191,.18);border:0.5px solid rgba(124,92,191,.4);color:var(--purple-ll);font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;margin-bottom:28px;animation:fadeIn .5s ease both}
+.ng-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.ng-greeting{font-size:16px;font-weight:400;color:var(--text2);margin-bottom:10px;animation:fadeUp .5s .05s ease both;display:flex;align-items:center;justify-content:center;gap:8px}
+.ng-wave{display:inline-block;animation:wave 1.8s ease infinite;transform-origin:70% 80%;font-size:20px}
+.ng-h1{font-size:46px;font-weight:600;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px;position:relative;z-index:1;animation:fadeUp .5s .15s ease both}
+.ng-h1 span{color:var(--purple-ll)}
+/* role line — subtle, small, muted */
+.ng-role-hint{font-size:12px;color:var(--text3);letter-spacing:.5px;margin-bottom:18px;animation:fadeUp .5s .2s ease both;font-style:italic}
+.ng-sub{font-size:15px;color:var(--text2);line-height:1.7;max-width:520px;margin:0 auto 36px;font-weight:300;animation:fadeUp .5s .25s ease both}
+.ng-hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeUp .5s .3s ease both;margin-bottom:48px}
+.ng-btn-primary{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;background:var(--purple);color:#fff;border:none;padding:11px 24px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s}
+.ng-btn-primary:hover{background:var(--purple-l)}
+.ng-btn-ghost{font-family:'Inter',sans-serif;font-size:13px;font-weight:400;background:transparent;color:var(--text2);border:0.5px solid var(--border2);padding:11px 20px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.ng-btn-ghost:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
+
+/* TERMINAL */
+.ng-terminal{max-width:540px;margin:0 auto;background:#0d0b14;border:0.5px solid var(--border2);border-radius:10px;overflow:hidden;text-align:left;animation:fadeUp .5s .4s ease both}
+.ng-term-bar{padding:10px 14px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.03)}
+.ng-dot{width:10px;height:10px;border-radius:50%}
+.ng-term-body{padding:16px 18px;font-family:'SF Mono',ui-monospace,monospace;font-size:12px;line-height:2}
+.ng-prompt{color:var(--text3)}.ng-cmd{color:var(--text)}
+.ng-out{color:var(--green);display:block}.ng-out2{color:var(--purple-ll);display:block}
+.ng-cursor{animation:termBlink 1s step-end infinite;color:var(--text)}
+
+/* MARQUEE */
+.ng-marquee-wrap{padding:24px 0;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);overflow:hidden;background:rgba(255,255,255,.02)}
+.ng-marquee{display:flex;gap:48px;width:max-content;animation:scrollX 22s linear infinite}
+.ng-marquee-item{font-size:12px;color:var(--text3);letter-spacing:.5px;white-space:nowrap}
+
+/* STATS — replaced github stars with something useful */
+.ng-stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--border)}
+.ng-stat{padding:28px 20px;border-right:0.5px solid var(--border);text-align:center}
+.ng-stat:last-child{border-right:none}
+.ng-stat-n{font-size:32px;font-weight:600;letter-spacing:-1px;margin-bottom:4px}
+.ng-stat-n span{color:var(--purple-ll)}
+.ng-stat-l{font-size:11px;color:var(--text2);font-weight:300;line-height:1.5}
+
+/* ABOUT */
+.ng-about{padding:48px 28px;border-bottom:0.5px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.ng-section-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--purple-l);margin-bottom:12px;font-weight:500}
+.ng-about-h{font-size:26px;font-weight:600;letter-spacing:-.5px;line-height:1.3;margin-bottom:16px}
+.ng-about-p{font-size:13px;color:var(--text2);line-height:1.85;font-weight:300;margin-bottom:20px}
+.ng-stack-wrap{display:flex;flex-wrap:wrap;gap:6px}
+.ng-chip{font-size:11px;font-weight:500;background:rgba(124,92,191,.12);border:0.5px solid rgba(124,92,191,.25);color:var(--purple-ll);padding:4px 11px;border-radius:20px;transition:all .15s;cursor:default}
+.ng-chip:hover{background:rgba(124,92,191,.25);border-color:rgba(124,92,191,.5)}
+.ng-about-r{display:flex;flex-direction:column;gap:10px}
+.ng-fact{background:rgba(255,255,255,.03);border:0.5px solid var(--border);border-radius:0 8px 8px 0;padding:14px 16px;border-left:2px solid var(--purple)}
+.ng-fact-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.ng-fact-val{font-size:13px;color:var(--text);font-weight:400;line-height:1.6}
+
+/* EXP */
+.ng-exp{padding:48px 28px;border-bottom:0.5px solid var(--border)}
+.ng-exp-grid{display:flex;flex-direction:column;margin-top:28px}
+.ng-exp-row{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:20px 0;border-bottom:0.5px solid var(--border)}
+.ng-exp-row:last-child{border-bottom:none}
+.ng-exp-yr{font-size:11px;color:var(--text3);padding-top:3px}
+.ng-exp-role{font-size:14px;font-weight:500;margin-bottom:3px}
+.ng-exp-co{font-size:12px;color:var(--purple-l);margin-bottom:8px}
+.ng-exp-desc{font-size:12px;color:var(--text2);line-height:1.75;font-weight:300}
+.ng-exp-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ng-exp-tag{font-size:10px;background:rgba(255,255,255,.05);border:0.5px solid var(--border2);color:var(--text2);padding:2px 9px;border-radius:4px}
+
+/* WORK + FILTER */
+.ng-work{padding:48px 28px;border-bottom:0.5px solid var(--border);background:var(--bg2);background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px}
+.ng-filter{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 24px}
+.ng-filter-btn{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:.3px;
+  background:transparent;color:var(--text3);
+  border:0.5px solid var(--border);
+  padding:5px 13px;border-radius:20px;cursor:pointer;
+  transition:all .18s;
+}
+.ng-filter-btn:hover{color:var(--text2);border-color:var(--border2)}
+.ng-filter-btn.active{background:rgba(124,92,191,.2);border-color:rgba(124,92,191,.5);color:var(--purple-ll)}
+.ng-work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ng-work-card{background:rgba(255,255,255,.035);border:0.5px solid var(--border2);border-radius:10px;padding:22px 20px;transition:border-color .18s,background .18s,opacity .25s,transform .25s;cursor:default;animation:cardIn .3s ease both}
+.ng-work-card:hover{border-color:rgba(124,92,191,.45);background:rgba(124,92,191,.07)}
+.ng-work-card.hidden{opacity:0;pointer-events:none;transform:scale(.97)}
+.ng-wc-num{font-size:10px;color:var(--text3);letter-spacing:1.5px;margin-bottom:10px;font-family:'SF Mono',monospace}
+.ng-wc-name{font-size:16px;font-weight:600;letter-spacing:-.3px;margin-bottom:8px}
+.ng-wc-desc{font-size:12px;color:var(--text2);line-height:1.75;font-weight:300;margin-bottom:14px}
+.ng-wc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.ng-wc-tag{font-size:10px;background:rgba(124,92,191,.12);border:0.5px solid rgba(124,92,191,.2);color:var(--purple-ll);padding:2px 9px;border-radius:4px}
+.ng-wc-links{display:flex;gap:14px}
+.ng-wc-link{font-size:11px;color:var(--text3);border-bottom:0.5px solid var(--border2);padding-bottom:1px;cursor:pointer;transition:color .15s}
+.ng-wc-link:hover{color:var(--text)}
+.ng-empty{display:none;text-align:center;padding:40px;color:var(--text3);font-size:13px;grid-column:1/-1}
+
+/* CTA */
+.ng-cta{padding:60px 28px;text-align:center;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;position:relative;overflow:hidden}
+.ng-cta-glow{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(124,92,191,.25) 0%,transparent 70%);pointer-events:none}
+.ng-cta h2{font-size:28px;font-weight:600;letter-spacing:-.5px;margin-bottom:12px;position:relative;z-index:1}
+.ng-cta p{font-size:13px;color:var(--text2);margin-bottom:28px;font-weight:300;position:relative;z-index:1}
+.ng-cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.ng-social{display:flex;gap:12px;justify-content:center;margin-top:20px;position:relative;z-index:1}
+.ng-social-btn{font-family:'Inter',sans-serif;font-size:12px;background:transparent;color:var(--text2);border:0.5px solid var(--border2);padding:8px 16px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.ng-social-btn:hover{color:var(--text);border-color:rgba(255,255,255,.3)}
+
+.ng-foot{padding:16px 28px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3)}
+</style>
+
+<div class="ng" id="ng">
+
+  <!-- NAV: logo only -->
+  <nav class="ng-nav">
+    <span class="ng-logo">juan<span>.</span>dev</span>
+    <div class="ng-nav-links">
+      <a onclick="sc('about')">about</a>
+      <a onclick="sc('exp')">experience</a>
+      <a onclick="sc('work')">work</a>
+      <a onclick="sc('cta')">contact</a>
+    </div>
+  </nav>
+
+  <div class="ng-scroll">
+
+    <!-- HERO -->
+    <div class="ng-hero">
+      <div class="ng-hero-glow"></div>
+      <div class="ng-badge"><span class="ng-badge-dot"></span>Open to new opportunities</div>
+      <p class="ng-greeting"><span class="ng-wave">👋</span> Hey there — I'm</p>
+      <h1 class="ng-h1">Juan.<br><span>I build things.</span></h1>
+      <!-- role: whisper-quiet, easy to swap -->
+      <p class="ng-role-hint">computer science student</p>
+      <p class="ng-sub">Passionate about clean code, thoughtful interfaces, and systems that hold up under pressure. Based in Jakarta, building for the web.</p>
+      <div class="ng-hero-btns">
+        <button class="ng-btn-primary"><i class="ti ti-download" style="font-size:15px"></i> Download CV</button>
+        <button class="ng-btn-ghost"><i class="ti ti-brand-github" style="font-size:15px"></i> GitHub</button>
+        <button class="ng-btn-ghost"><i class="ti ti-brand-linkedin" style="font-size:15px"></i> LinkedIn</button>
+      </div>
+      <div class="ng-terminal">
+        <div class="ng-term-bar">
+          <div class="ng-dot" style="background:#ff5f57"></div>
+          <div class="ng-dot" style="background:#febc2e"></div>
+          <div class="ng-dot" style="background:#28c840"></div>
+        </div>
+        <div class="ng-term-body">
+          <span><span class="ng-prompt">~/projects $ </span><span class="ng-cmd">git log --oneline --graph</span></span>
+          <span class="ng-out">* a3f2c1e fix: reduce bundle size by 42%</span>
+          <span class="ng-out">* b91d4a0 feat: real-time collab via WebSockets</span>
+          <span class="ng-out2">* c4e8f12 perf: P95 latency 800ms → 140ms</span>
+          <span class="ng-out">* d23b9e7 feat: CLI tool ships to production</span>
+          <span><span class="ng-prompt">~/projects $ </span><span class="ng-cursor">▌</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="ng-marquee-wrap">
+      <div class="ng-marquee">
+        <span class="ng-marquee-item">TypeScript</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">React</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Next.js</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Node.js</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Go</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">PostgreSQL</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Docker</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">AWS</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Redis</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Rust</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Prisma</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">GraphQL</span><span class="ng-marquee-item">·</span>
+        <span class="ng-marquee-item">TypeScript</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">React</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Next.js</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Node.js</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Go</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">PostgreSQL</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Docker</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">AWS</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Redis</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Rust</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">Prisma</span><span class="ng-marquee-item">·</span><span class="ng-marquee-item">GraphQL</span><span class="ng-marquee-item">·</span>
+      </div>
+    </div>
+
+    <!-- STATS — replaced github stars with something practical -->
+    <div class="ng-stats">
+      <div class="ng-stat">
+        <div class="ng-stat-n">10<span>+</span></div>
+        <div class="ng-stat-l">Projects shipped</div>
+      </div>
+      <div class="ng-stat">
+        <div class="ng-stat-n">5<span>+</span></div>
+        <div class="ng-stat-l">Tech stacks mastered</div>
+      </div>
+      <div class="ng-stat">
+        <div class="ng-stat-n">3<span>+</span></div>
+        <div class="ng-stat-l">Years coding</div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="ng-about" id="about">
+      <div>
+        <div class="ng-section-eyebrow">About</div>
+        <h2 class="ng-about-h">Curious by nature.<br>Builder by habit.</h2>
+        <p class="ng-about-p">CS student who got hooked on building real things — not just passing exams. I find the intersection of design and engineering genuinely exciting, and I think the best software feels inevitable once you use it.</p>
+        <p class="ng-about-p">Nights and weekends: side projects, open source exploration, and occasionally breaking things to understand how they work.</p>
+        <div class="ng-stack-wrap">
+          <span class="ng-chip">TypeScript</span><span class="ng-chip">React</span><span class="ng-chip">Node.js</span><span class="ng-chip">Go</span><span class="ng-chip">Rust</span><span class="ng-chip">PostgreSQL</span><span class="ng-chip">Docker</span><span class="ng-chip">AWS</span>
+        </div>
+      </div>
+      <div class="ng-about-r">
+        <div class="ng-fact"><div class="ng-fact-label">Currently</div><div class="ng-fact-val">Studying Computer Science · Building side projects</div></div>
+        <div class="ng-fact"><div class="ng-fact-label">Location</div><div class="ng-fact-val">Jakarta, Indonesia · Remote-friendly</div></div>
+        <div class="ng-fact"><div class="ng-fact-label">Availability</div><div class="ng-fact-val">Open to internships, freelance & collaborations</div></div>
+        <div class="ng-fact"><div class="ng-fact-label">Strengths</div><div class="ng-fact-val">Systems design · API architecture · Design systems · Fast learner</div></div>
+        <!-- new section: what i'm learning -->
+        <div class="ng-fact" style="border-left-color:var(--purple-ll)">
+          <div class="ng-fact-label">Currently learning</div>
+          <div class="ng-fact-val">Distributed systems · Rust memory model · System design patterns</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="ng-exp" id="exp">
+      <div class="ng-section-eyebrow">Experience</div>
+      <div class="ng-exp-grid">
+        <div class="ng-exp-row">
+          <span class="ng-exp-yr">2023 — now</span>
+          <div><div class="ng-exp-role">Frontend Engineer</div><div class="ng-exp-co">Acme Corp</div><div class="ng-exp-desc">Led migration from Angular to Next.js 14. Cut bundle size 42%. Built a design system used across 6 squads.</div><div class="ng-exp-tags"><span class="ng-exp-tag">Next.js</span><span class="ng-exp-tag">TypeScript</span><span class="ng-exp-tag">Design systems</span></div></div>
+        </div>
+        <div class="ng-exp-row">
+          <span class="ng-exp-yr">2021 — 2023</span>
+          <div><div class="ng-exp-role">Full-Stack Developer</div><div class="ng-exp-co">Startup XYZ</div><div class="ng-exp-desc">Built real-time collaboration using WebSockets. Designed API from scratch. Reduced P95 latency 800ms → 140ms.</div><div class="ng-exp-tags"><span class="ng-exp-tag">Node.js</span><span class="ng-exp-tag">PostgreSQL</span><span class="ng-exp-tag">WebSockets</span></div></div>
+        </div>
+        <div class="ng-exp-row">
+          <span class="ng-exp-yr">2019 — 2021</span>
+          <div><div class="ng-exp-role">Junior Developer</div><div class="ng-exp-co">Agency Co.</div><div class="ng-exp-desc">Delivered 14 client projects. Introduced CI/CD pipelines. Specialised in React and headless CMS integrations.</div><div class="ng-exp-tags"><span class="ng-exp-tag">React</span><span class="ng-exp-tag">Contentful</span><span class="ng-exp-tag">CI/CD</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORK + FILTER -->
+    <div class="ng-work" id="work">
+      <div class="ng-section-eyebrow">Selected work</div>
+
+      <div class="ng-filter">
+        <button class="ng-filter-btn active" onclick="filter('all',this)">All</button>
+        <button class="ng-filter-btn" onclick="filter('typescript',this)">TypeScript</button>
+        <button class="ng-filter-btn" onclick="filter('go',this)">Go</button>
+        <button class="ng-filter-btn" onclick="filter('python',this)">Python</button>
+        <button class="ng-filter-btn" onclick="filter('react',this)">React</button>
+        <button class="ng-filter-btn" onclick="filter('rust',this)">Rust</button>
+      </div>
+
+      <div class="ng-work-grid" id="workGrid">
+        <div class="ng-work-card" data-tags="typescript react postgres">
+          <div class="ng-wc-num">// 001</div>
+          <div class="ng-wc-name">DevMetrics</div>
+          <div class="ng-wc-desc">GitHub activity dashboard with custom analytics, streak tracking, and team leaderboards. 200+ active users.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">TypeScript</span><span class="ng-wc-tag">React</span><span class="ng-wc-tag">Postgres</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-work-card" data-tags="go cli">
+          <div class="ng-wc-num">// 002</div>
+          <div class="ng-wc-name">FlowCLI</div>
+          <div class="ng-wc-desc">Terminal task manager — Pomodoro, Git hooks, Slack integration. Ships to production daily.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">Go</span><span class="ng-wc-tag">CLI</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-work-card" data-tags="typescript react node">
+          <div class="ng-wc-num">// 003</div>
+          <div class="ng-wc-name">APIForge</div>
+          <div class="ng-wc-desc">Visual REST builder that auto-generates TypeScript types, OpenAPI docs, and mock servers.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">TypeScript</span><span class="ng-wc-tag">React</span><span class="ng-wc-tag">Node</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-work-card" data-tags="python postgres rust">
+          <div class="ng-wc-num">// 004</div>
+          <div class="ng-wc-name">SQLens</div>
+          <div class="ng-wc-desc">Query analyser with execution plan visualisation, index hints, and performance suggestions inline.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">Python</span><span class="ng-wc-tag">Postgres</span><span class="ng-wc-tag">Rust</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-work-card" data-tags="go rust">
+          <div class="ng-wc-num">// 005</div>
+          <div class="ng-wc-name">LogStream</div>
+          <div class="ng-wc-desc">High-throughput log aggregator with real-time alerting, written in Go with a Rust parser core.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">Go</span><span class="ng-wc-tag">Rust</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-work-card" data-tags="python react">
+          <div class="ng-wc-num">// 006</div>
+          <div class="ng-wc-name">MLBoard</div>
+          <div class="ng-wc-desc">Experiment tracking dashboard for ML runs — compare metrics, visualise training curves, export reports.</div>
+          <div class="ng-wc-tags"><span class="ng-wc-tag">Python</span><span class="ng-wc-tag">React</span></div>
+          <div class="ng-wc-links"><a class="ng-wc-link">Live ↗</a><a class="ng-wc-link">Repo ↗</a></div>
+        </div>
+        <div class="ng-empty" id="emptyMsg">No projects found for this filter.</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="ng-cta" id="cta">
+      <div class="ng-cta-glow"></div>
+      <h2>Let's build something together.</h2>
+      <p>Open to internships, freelance projects, and interesting conversations.</p>
+      <div class="ng-cta-btns">
+        <button class="ng-btn-primary"><i class="ti ti-mail" style="font-size:15px"></i> Email me</button>
+        <button class="ng-btn-ghost"><i class="ti ti-download" style="font-size:15px"></i> Download CV</button>
+      </div>
+      <div class="ng-social">
+        <button class="ng-social-btn"><i class="ti ti-brand-github" style="font-size:14px"></i> GitHub</button>
+        <button class="ng-social-btn"><i class="ti ti-brand-linkedin" style="font-size:14px"></i> LinkedIn</button>
+      </div>
+    </div>
+
+    <footer class="ng-foot">
+      <span>© 2026 · juan.dev</span>
+      <span>Jakarta, ID</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+function sc(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+function filter(lang, btn) {
+  // update active button
+  document.querySelectorAll('.ng-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.ng-work-card');
+  let visible = 0;
+  cards.forEach(c=>{
+    const tags = c.getAttribute('data-tags') || '';
+    const show = lang === 'all' || tags.includes(lang);
+    c.classList.toggle('hidden', !show);
+    if(show) visible++;
+  });
+
+  const empty = document.getElementById('emptyMsg');
+  empty.style.display = visible === 0 ? 'block' : 'none';
+}
+</script>

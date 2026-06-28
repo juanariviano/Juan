@@ -1,14 +1,10 @@
-import React from 'react'
+import { profile } from "../data/profile";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <div className="col-span-3 max-xl:col-span-3">
-        <div className='flex justify-between max-sm:flex-col max-sm:gap-3 max-sm:mb-2'>
-            <h3>Last Update : July 2025</h3>
-            <a href="https://www.shopify.com/ca/editions/winter2025" className='text-blue-900 underline dark:text-blue-600'>[Design Reference]</a>
-        </div>
-    </div>
-  )
+    <footer className="section-px flex flex-col items-center justify-between gap-2 border-t border-ng-border py-4 text-[11px] text-ng-text3 sm:flex-row">
+      <span>© {new Date().getFullYear()} · {profile.domain}</span>
+      <span>{profile.location}</span>
+    </footer>
+  );
 }
-
-export default Footer
