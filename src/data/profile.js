@@ -74,7 +74,7 @@ export const profile = {
       { hash: "a3f2c1e", msg: "feat: PlanWithUs donation platform", type: "out" },
       { hash: "b91d4a0", msg: "feat: LuxBid real-time auction bidding", type: "out" },
       { hash: "c4e8f12", msg: "feat: Neuronesia personalized AI advisor & analytic chatbot", type: "out" },
-      { hash: "d23b9e7", msg: "feat: Plotify A personal media journal for tracking where you left off across everything you watch and read", type: "out2" },
+      { hash: "d23b9e7", msg: "feat: Plotify personal media journal", type: "out2" },
     ],
   },
 };
