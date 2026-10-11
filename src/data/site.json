@@ -1,0 +1,33 @@
+{
+  "nav": [
+    { "id": "top", "label": "home" },
+    { "id": "work", "label": "work" },
+    { "id": "projects", "label": "projects" },
+    { "id": "about", "label": "about" },
+    { "id": "contact", "label": "contact" }
+  ],
+  "clock": {
+    "timeZone": "Asia/Jakarta",
+    "label": "WIB",
+    "city": "jakarta"
+  },
+  "footer": {
+    "left": "© {year} · juan.",
+    "right": "jakarta, indonesia"
+  },
+  "decor": {
+    "doodles": {
+      "coffee": "fuel.",
+      "terminal": "git push --force? no.",
+      "plane": "",
+      "bulb": "ideas welcome"
+    },
+    "motto": ["curious by nature.", "builder by habit."],
+    "tagline": "I build things.",
+    "signature": "— juan, {year}",
+    "note": {
+      "label": "currently",
+      "text": "CS @ Binus + shipping side projects"
+    }
+  }
+}

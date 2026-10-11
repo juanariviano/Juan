@@ -1,34 +1,31 @@
-import { useCallback, useEffect, useState } from "react";
-import { X, NoteBlank } from "@phosphor-icons/react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { NoteBlank, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { publicUrl } from "../utils/utils";
 
-const NO_DESCRIPTION = "No description has been provided for this project";
+// The README renderer (HTML parser, sanitizer, diagrams) only loads once a readme is opened.
+const Markdown = lazy(() => import("./ui/Markdown"));
+
+const NO_DESCRIPTION = "No description has been provided for this project yet.";
 
 async function fetchReadme(slug) {
-  const base = process.env.PUBLIC_URL || "";
-  const res = await fetch(`${base}/readmes/${slug}.md`);
+  const res = await fetch(publicUrl(`/readmes/${slug}.md`));
   if (!res.ok) throw new Error("not-found");
   return res.text();
 }
 
 function EmptyNote() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-ng-border2 bg-ng-surface px-6 py-12 text-center">
-      <NoteBlank size={28} className="mb-3 text-ng-text3" />
-      <p className="text-sm leading-relaxed text-ng-text2">{NO_DESCRIPTION}</p>
+    <div className="hatch flex flex-col items-center justify-center rounded-lg border border-dashed border-nb-rule px-6 py-12 text-center">
+      <NoteBlank size={28} className="mb-3 text-nb-ink3" aria-hidden="true" />
+      <p className="font-hand text-base text-nb-ink2">{NO_DESCRIPTION}</p>
     </div>
   );
 }
 
-const markdownComponents = {
-  table: ({ children }) => (
-    <div className="readme-table-wrap">
-      <table>{children}</table>
-    </div>
-  ),
-};
+const footerLink =
+  "border-b border-dashed border-nb-rule pb-px font-mono text-xs text-nb-ink2 transition-colors hover:border-nb-ink hover:text-nb-ink";
 
 export default function ProjectReadmeModal({ project, onClose }) {
   const reduce = useReducedMotion();
@@ -45,8 +42,7 @@ export default function ProjectReadmeModal({ project, onClose }) {
 
     setStatus("loading");
     try {
-      const text = await fetchReadme(trimmed);
-      setContent(text);
+      setContent(await fetchReadme(trimmed));
       setStatus("ready");
     } catch {
       setContent("");
@@ -56,7 +52,7 @@ export default function ProjectReadmeModal({ project, onClose }) {
 
   useEffect(() => {
     if (!project) return;
-    loadReadme(project.readmeSlug);
+    loadReadme(project.readme);
   }, [project, loadReadme]);
 
   useEffect(() => {
@@ -74,9 +70,8 @@ export default function ProjectReadmeModal({ project, onClose }) {
     };
   }, [project, onClose]);
 
-  if (!project) return null;
-
-  return (
+  // Portal to <body> so the dialog sits above the sticky navbar and wall decor.
+  return createPortal(
     <AnimatePresence>
       {project && (
         <motion.div
@@ -97,22 +92,18 @@ export default function ProjectReadmeModal({ project, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="readme-modal-title"
-            className="relative flex max-h-[min(88vh,720px)] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-ng-border2 bg-ng-bg2 shadow-2xl"
-            initial={reduce ? false : { opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-[min(88vh,820px)] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-nb-rule bg-nb-card shadow-2xl"
+            initial={reduce ? false : { opacity: 0, y: 24, rotate: -1.5, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, rotate: 1, scale: 0.97 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-ng-border px-5 py-4">
+            <div className="flex items-start justify-between gap-4 border-b border-dashed border-nb-rule px-5 py-4">
               <div>
-                <p className="mb-1 font-mono text-[10px] tracking-[0.15em] text-ng-text3">
+                <p className="mb-1 font-mono text-[10px] tracking-[0.15em] text-nb-ink3">
                   README.md
                 </p>
-                <h2
-                  id="readme-modal-title"
-                  className="text-lg font-semibold tracking-tight text-ng-fg"
-                >
+                <h2 id="readme-modal-title" className="font-hand text-xl text-nb-ink">
                   {project.name}
                 </h2>
               </div>
@@ -120,7 +111,7 @@ export default function ProjectReadmeModal({ project, onClose }) {
                 type="button"
                 aria-label="Close"
                 onClick={onClose}
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ng-border2 bg-ng-surface text-ng-text2 transition-colors hover:bg-ng-surface-hover hover:text-ng-fg"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-nb-rule text-nb-ink2 transition-colors hover:border-nb-ink hover:text-nb-ink"
               >
                 <X size={16} />
               </button>
@@ -128,46 +119,38 @@ export default function ProjectReadmeModal({ project, onClose }) {
 
             <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
               {status === "loading" && (
-                <p className="text-sm text-ng-text3">Loading...</p>
+                <p className="font-hand text-sm text-nb-ink3">flipping to the right page…</p>
               )}
 
               {status === "empty" && <EmptyNote />}
 
               {status === "ready" && content && (
                 <article className="readme-prose">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={markdownComponents}
+                  <Suspense
+                    fallback={<p className="font-hand text-sm text-nb-ink3">flipping to the right page…</p>}
                   >
-                    {content}
-                  </ReactMarkdown>
+                    <Markdown content={content} repoUrl={project.github} />
+                  </Suspense>
                 </article>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3 border-t border-ng-border px-5 py-3">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-[11px] text-ng-text3 transition-colors hover:text-ng-fg"
-              >
-                Repo ↗
-              </a>
-              {project.deploy !== "none" && (
-                <a
-                  href={project.deploy}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-ng-text3 transition-colors hover:text-ng-fg"
-                >
-                  Live ↗
+            <div className="flex flex-wrap gap-4 border-t border-dashed border-nb-rule px-5 py-3">
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className={footerLink}>
+                  repo ↗
+                </a>
+              )}
+              {project.live && (
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className={footerLink}>
+                  live ↗
                 </a>
               )}
             </div>
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

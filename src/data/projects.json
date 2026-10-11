@@ -1,0 +1,64 @@
+{
+  "section": {
+    "number": "02",
+    "eyebrow": "selected work",
+    "title": "things i've built"
+  },
+  "filters": ["all", "React", "TypeScript", "Node.js", "Python", "Tailwind"],
+  "items": [
+    {
+      "name": "PlanWithUs",
+      "description": "Find donations and volunteers for environmental cleanup events.",
+      "image": "/projects/planwithus.png",
+      "readme": "planwithus",
+      "github": "https://github.com/juanariviano/PlanWithUs",
+      "live": "",
+      "tech": ["Node.js", "PostgreSQL", "EJS", "CSS"]
+    },
+    {
+      "name": "LuxBid",
+      "description": "Auction platform for luxury goods with real-time bidding.",
+      "image": "/projects/luxbid.png",
+      "readme": "luxbid",
+      "github": "https://github.com/ronyandrean/LuxBid",
+      "live": "",
+      "tech": ["React", "TypeScript", "Tailwind", "Motoko"]
+    },
+    {
+      "name": "Neuronesia",
+      "description": "Personalized AI advisor and analytic chatbot.",
+      "image": "/projects/neuronesia.png",
+      "readme": "neuronesia",
+      "github": "https://github.com/JustKalvin/Neuronesia",
+      "live": "",
+      "tech": ["React", "JavaScript", "Tailwind", "N8N"]
+    },
+    {
+      "name": "DiagnoAI",
+      "description": "Machine-learning app that helps predict heart disease from a person's health data.",
+      "image": "/projects/diagnoai.png",
+      "readme": "diagnoai",
+      "github": "https://github.com/juanariviano/DiagnoAI",
+      "live": "",
+      "tech": ["Python", "Flask", "HTML", "CSS"]
+    },
+    {
+      "name": "Plotify",
+      "description": "A personal media journal for tracking where you left off across everything you watch and read.",
+      "image": "/projects/plotify.png",
+      "readme": "plotify",
+      "github": "https://github.com/juanariviano/Plotify",
+      "live": "https://yourplotify.site",
+      "tech": ["React", "TypeScript", "Node.js", "Tailwind", "Supabase", "Clerk"]
+    },
+    {
+      "name": "Phisang",
+      "description": "Chrome extension and web scanner that catches phishing and malware links before the page opens.",
+      "image": "/projects/phisang.png",
+      "readme": "phisang",
+      "github": "https://github.com/juanariviano/Phisang",
+      "live": "https://phisang.kennethsunjaya.com/",
+      "tech": ["Python", "FastAPI", "React", "Chrome Extension", "Machine Learning"]
+    }
+  ]
+}

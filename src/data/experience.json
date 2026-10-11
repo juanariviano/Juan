@@ -1,0 +1,22 @@
+{
+  "section": {
+    "number": "01",
+    "eyebrow": "experience",
+    "title": "where i've worked",
+    "hint": "tap a line to unfold ↴"
+  },
+  "items": [
+    {
+      "logo": "TF",
+      "company": "TECHFEST HIMTI",
+      "badge": "experience",
+      "role": "Web Development Coordinator",
+      "start": "2024",
+      "end": "2025",
+      "location": "Binus University",
+      "description": "Led the web development team to build a responsive website for TECHFEST 2024 using HTML, CSS, and JavaScript. Managed the team, coordinated with other departments, and delivered interactive features on schedule.",
+      "tags": ["HTML", "CSS", "JavaScript", "Leadership"],
+      "openByDefault": true
+    }
+  ]
+}

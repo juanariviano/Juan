@@ -1,22 +1,47 @@
 import { Moon, Sun } from "@phosphor-icons/react";
+import { motion } from "motion/react";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/utils";
 
-export default function ThemeToggle({ className }) {
-  const { theme, toggle } = useTheme();
-  const isDark = theme === "dark";
+const OPTIONS = [
+  { value: "light", label: "Light mode", Icon: Sun },
+  { value: "dark", label: "Dark mode", Icon: Moon },
+];
+
+export default function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
   return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={cn(
-        "inline-flex h-8 w-8 items-center justify-center rounded-md border border-ng-border2 bg-ng-surface text-ng-text2 transition-colors duration-150 hover:border-ng-border2 hover:bg-ng-surface-hover hover:text-ng-fg",
-        className
-      )}
+    <div
+      role="group"
+      aria-label="Color theme"
+      className="inline-flex gap-0.5 rounded-full border border-nb-rule p-[3px]"
     >
-      {isDark ? <Sun size={16} weight="regular" /> : <Moon size={16} weight="regular" />}
-    </button>
+      {OPTIONS.map(({ value, label, Icon }) => {
+        const active = theme === value;
+        return (
+          <button
+            key={value}
+            type="button"
+            aria-label={label}
+            aria-pressed={active}
+            onClick={() => setTheme(value)}
+            className={cn(
+              "relative inline-flex h-9 w-10 items-center justify-center rounded-full transition-colors duration-200",
+              active ? "text-nb-paper" : "text-nb-ink3 hover:text-nb-ink"
+            )}
+          >
+            {active && (
+              <motion.span
+                layoutId="theme-pill"
+                className="absolute inset-0 rounded-full bg-nb-ink"
+                transition={{ type: "spring", stiffness: 500, damping: 36 }}
+              />
+            )}
+            <Icon size={16} className="relative" />
+          </button>
+        );
+      })}
+    </div>
   );
 }

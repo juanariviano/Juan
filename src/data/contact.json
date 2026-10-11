@@ -1,0 +1,16 @@
+{
+  "section": {
+    "number": "04",
+    "eyebrow": "contact",
+    "title": "let's build something",
+    "titleUnderline": "together."
+  },
+  "stamp": ["JKT", "2026"],
+  "emailLabel": "email me",
+  "cvLabel": "view cv",
+  "socialsLabel": "or say hi on",
+  "socials": [
+    { "label": "github", "href": "https://github.com/juanariviano" },
+    { "label": "linkedin", "href": "https://www.linkedin.com/in/juan-ariviano-chandra" }
+  ]
+}

@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { DownloadSimple, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { profile } from "../data/profile";
+import { profile } from "../content";
+import { publicUrl } from "../utils/utils";
 import Button from "./ui/Button";
 
 export default function CvModal({ open, onClose }) {
   const reduce = useReducedMotion();
+  const cvUrl = publicUrl(profile.cv.url);
 
   useEffect(() => {
     if (!open) return;
@@ -43,49 +45,43 @@ export default function CvModal({ open, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="cv-modal-title"
-            className="relative flex h-[min(90vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-ng-border2 bg-ng-bg2 shadow-2xl"
-            initial={reduce ? false : { opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            onClick={(e) => e.stopPropagation()}
+            className="relative flex h-[min(90vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-nb-rule bg-nb-card shadow-2xl"
+            initial={reduce ? false : { opacity: 0, y: 24, rotate: -1.5, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, rotate: 1, scale: 0.97 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-ng-border px-5 py-4">
+            <div className="flex items-start justify-between gap-4 border-b border-dashed border-nb-rule px-5 py-4">
               <div>
-                <p className="mb-1 font-mono text-[10px] tracking-[0.15em] text-ng-text3">
-                  CV.pdf
-                </p>
-                <h2
-                  id="cv-modal-title"
-                  className="text-lg font-semibold tracking-tight text-ng-fg"
-                >
-                  {profile.name}&apos;s Resume
+                <p className="mb-1 font-mono text-[10px] tracking-[0.15em] text-nb-ink3">CV.pdf</p>
+                <h2 id="cv-modal-title" className="font-hand text-xl text-nb-ink">
+                  {profile.nickname}&apos;s resume
                 </h2>
               </div>
               <button
                 type="button"
                 aria-label="Close"
                 onClick={onClose}
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-ng-border2 bg-ng-surface text-ng-text2 transition-colors hover:bg-ng-surface-hover hover:text-ng-fg"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-nb-rule text-nb-ink2 transition-colors hover:border-nb-ink hover:text-nb-ink"
               >
                 <X size={16} />
               </button>
             </div>
 
-            <div className="min-h-0 flex-1 bg-ng-terminal p-1">
+            <div className="min-h-0 flex-1 bg-nb-paper p-1">
               <iframe
-                src={profile.cvUrl}
+                src={cvUrl}
                 title={`${profile.name} CV`}
                 className="h-full w-full rounded-md border-0 bg-white"
               />
             </div>
 
-            <div className="flex flex-wrap items-center justify-end gap-3 border-t border-ng-border px-5 py-3">
+            <div className="flex flex-wrap items-center justify-end gap-3 border-t border-dashed border-nb-rule px-5 py-3">
               <Button variant="ghost" onClick={onClose}>
                 Close
               </Button>
-              <Button href={profile.cvUrl} download={profile.cvDownloadName}>
-                <DownloadSimple size={15} weight="regular" />
+              <Button href={cvUrl} download={profile.cv.downloadName}>
+                <DownloadSimple size={15} aria-hidden="true" />
                 Download CV
               </Button>
             </div>

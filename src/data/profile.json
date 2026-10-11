@@ -1,0 +1,33 @@
+{
+  "name": "Juan",
+  "nickname": "juan",
+  "brand": "juan.",
+  "role": "cs student @ binus university",
+  "location": "Jakarta, Indonesia",
+  "availability": "open",
+  "cv": {
+    "url": "/cv.pdf",
+    "downloadName": "Juan-CV.pdf"
+  },
+  "links": {
+    "github": "https://github.com/juanariviano",
+    "linkedin": "https://www.linkedin.com/in/juan-ariviano-chandra",
+    "email": "mailto:juanariviano@gmail.com"
+  },
+  "hero": {
+    "greeting": "hey, i'm",
+    "bio": [
+      "Computer science student who enjoys designing ==scalable backend systems==, building ==reliable APIs==, and writing ==clean, maintainable code==.",
+      "Hooked on building real things, not just passing exams — I like turning ==rough ideas== into ==products people actually use==.",
+      "Nights and weekends: side projects, open source, and ==breaking things to see how they work==."
+    ],
+    "socialsLabel": "find me →",
+    "doodleHint": "psst — hold & drag anywhere to doodle on this page",
+    "socials": [
+      { "label": "github", "icon": "github", "href": "https://github.com/juanariviano" },
+      { "label": "linkedin", "icon": "linkedin", "href": "https://www.linkedin.com/in/juan-ariviano-chandra" },
+      { "label": "email", "icon": "email", "href": "mailto:juanariviano@gmail.com" },
+      { "label": "view cv", "icon": "cv", "action": "cv" }
+    ]
+  }
+}

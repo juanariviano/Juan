@@ -1,52 +1,118 @@
-import { experiences } from "../data/experiences";
+import { useState } from "react";
+import { CaretDown, MapPin } from "@phosphor-icons/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { experience } from "../content";
+import { tagId } from "../utils/utils";
 import Reveal from "./motion/Reveal";
-import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
-function formatPeriod(start, end) {
-  const endLabel =
-    !end || end.toLowerCase() === "now" || end.toLowerCase() === "present"
-      ? "now"
-      : end;
-  return `${start} - ${endLabel}`;
+const EASE = [0.16, 1, 0.3, 1];
+
+function formatPeriod({ start, end }) {
+  const endLabel = !end || /^(now|present)$/i.test(end) ? "present" : end;
+  return `${start} — ${endLabel}`;
 }
 
-export default function Experience() {
-  return (
-    <Section id="exp" className="section-px border-b border-ng-border py-12">
-      <Reveal>
-        <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.2em] text-ng-muted">
-          Experience
-        </p>
-      </Reveal>
+function ExperienceRow({ item }) {
+  const reduce = useReducedMotion();
+  const [open, setOpen] = useState(Boolean(item.openByDefault));
+  const bodyId = `exp-${tagId(item.company)}`;
+  const period = formatPeriod(item);
 
-      <div className="mt-7 flex flex-col">
-        {experiences.map((exp, i) => (
-          <Reveal key={exp.role} delay={i * 0.08}>
-            <div className="grid grid-cols-1 gap-5 border-b border-ng-border py-5 last:border-b-0 md:grid-cols-[120px_1fr]">
-              <span className="pt-0.5 text-[11px] text-ng-text3">
-                {formatPeriod(exp.startPeriod, exp.endPeriod)}
+  return (
+    <div>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={bodyId}
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-start gap-4 rounded-2xl px-5 py-5 text-left transition-colors hover:bg-nb-paper sm:px-6 sm:py-[22px]"
+      >
+        <span className="flex h-[46px] w-[46px] flex-none items-center justify-center rounded-[10px] bg-nb-ink font-mono text-xs font-semibold text-nb-paper">
+          {item.logo}
+        </span>
+        <span className="block min-w-0 flex-1">
+          <span className="flex flex-wrap items-center gap-2.5">
+            <span className="text-[17px] font-semibold">{item.company}</span>
+            {item.badge && (
+              <span className="rounded-full border border-nb-rule px-2.5 py-0.5 font-mono text-[10.5px] text-nb-ink3">
+                {item.badge}
               </span>
-              <div>
-                <div className="mb-0.5 text-sm font-medium">{exp.role}</div>
-                <div className="mb-2 text-xs text-ng-muted">{exp.company}</div>
-                <p className="text-xs font-light leading-[1.75] text-ng-text2">
-                  {exp.description}
-                </p>
-                <div className="mt-2.5 flex flex-wrap gap-1">
-                  {exp.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded border border-ng-border2 bg-ng-surface px-2 py-0.5 text-[10px] text-ng-text2"
-                    >
+            )}
+          </span>
+          <span className="mt-1 block text-[15px] text-nb-ink2">{item.role}</span>
+          <span className="mt-1.5 block font-mono text-[11.5px] text-nb-ink3 sm:hidden">
+            {period}
+            {item.location && ` · ${item.location}`}
+          </span>
+        </span>
+        <span className="hidden flex-none pt-0.5 text-right font-mono text-xs text-nb-ink2 sm:block">
+          <span className="block">{period}</span>
+          {item.location && (
+            <span className="mt-1.5 flex items-center justify-end gap-1 text-nb-ink3">
+              <MapPin size={12} aria-hidden="true" />
+              {item.location}
+            </span>
+          )}
+        </span>
+        <motion.span
+          className="mt-3 flex-none text-nb-ink3"
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.25, ease: EASE }}
+          aria-hidden="true"
+        >
+          <CaretDown size={18} />
+        </motion.span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id={bodyId}
+            key="body"
+            className="overflow-hidden"
+            initial={reduce ? false : { height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+          >
+            <div className="px-5 pb-6 sm:pl-[86px] sm:pr-6">
+              <p className="max-w-[640px] text-[15px] leading-[1.7] text-nb-ink2">
+                {item.description}
+              </p>
+              {item.tags?.length > 0 && (
+                <div className="mt-3.5 flex flex-wrap gap-1.5 font-mono text-[11px] text-nb-ink2">
+                  {item.tags.map((tag) => (
+                    <span key={tag} className="rounded-md border border-nb-rule px-2.5 py-1">
                       {tag}
                     </span>
                   ))}
                 </div>
-              </div>
+              )}
             </div>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default function Experience() {
+  return (
+    <section
+      id="work"
+      aria-labelledby="work-h"
+      className="mx-auto max-w-[920px] px-6 pb-24 pt-6"
+    >
+      <SectionHeading id="work-h" section={experience.section} hint={experience.section.hint} />
+      <Reveal delay={0.08}>
+        <div className="relative divide-y divide-dashed divide-nb-rule rounded-2xl border border-nb-rule bg-nb-card shadow-card">
+          <span className="tape -top-[11px] right-16 h-[22px] w-24 rotate-2" />
+          {experience.items.map((item) => (
+            <ExperienceRow key={`${item.company}-${item.start}`} item={item} />
+          ))}
+        </div>
+      </Reveal>
+    </section>
   );
 }

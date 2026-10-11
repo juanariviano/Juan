@@ -18,7 +18,7 @@ export function applyTheme(theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
   document
     .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", theme === "dark" ? "#0a0a0a" : "#f5f5f5");
+    ?.setAttribute("content", theme === "dark" ? "#0e0e0e" : "#f7f7f7");
 }
 
 const ThemeContext = createContext(null);

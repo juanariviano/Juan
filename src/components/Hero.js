@@ -1,107 +1,211 @@
 import {
+  ArrowCounterClockwise,
+  EnvelopeSimple,
+  FileText,
   GithubLogo,
-  Eye,
   LinkedinLogo,
+  PencilSimple,
 } from "@phosphor-icons/react";
-import { profile } from "../data/profile";
-import { getAvailability } from "../data/availability";
+import { motion, useReducedMotion } from "motion/react";
+import { availability, profile } from "../content";
 import { useCvModal } from "../context/CvModalContext";
-import Badge from "./ui/Badge";
-import Button from "./ui/Button";
+import useHandwriting from "../hooks/useHandwriting";
+import { cn, countHighlights, isExternalHref } from "../utils/utils";
+import HighlightText from "./ui/HighlightText";
+import PulseDot from "./ui/PulseDot";
+import Squiggle from "./ui/Squiggle";
+
+const ICONS = {
+  github: GithubLogo,
+  linkedin: LinkedinLogo,
+  email: EnvelopeSimple,
+  cv: FileText,
+};
+const TILTS = [-1.5, 1.2, -1, 2];
+const EASE = [0.16, 1, 0.3, 1];
+
+const chipClass =
+  "inline-flex min-h-[44px] items-center gap-2 rounded-full border border-nb-rule bg-nb-chip px-4 text-nb-ink shadow-chip";
+
+function fadeUp(reduce, delay) {
+  if (reduce) return {};
+  return {
+    initial: { opacity: 0, y: 14 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay, ease: EASE },
+  };
+}
 
 export default function Hero() {
-  const { links, terminal } = profile;
-  const availability = getAvailability(profile.availability);
+  const reduce = useReducedMotion();
   const { openCv } = useCvModal();
+  const { hero } = profile;
+
+  const prefix = `${hero.greeting} `;
+  const fullTitle = prefix + profile.nickname;
+  const { count, done, replay } = useHandwriting(fullTitle, { enabled: !reduce });
+  const typedPrefix = fullTitle.slice(0, Math.min(count, prefix.length));
+  const typedName = count > prefix.length ? fullTitle.slice(prefix.length, count) : "";
+
+  // Keep the highlighter shades cycling across paragraphs instead of restarting.
+  let markOffset = 0;
+  const paragraphs = hero.bio.map((text) => {
+    const start = markOffset;
+    markOffset += countHighlights(text);
+    return { text, start };
+  });
 
   return (
-    <header className="section-px relative overflow-hidden pb-14 pt-16 text-center grid-bg">
-      <div
-        className="pointer-events-none absolute -top-20 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full hero-glow animate-glowPulse"
-        aria-hidden
-      />
-
-      <Badge label={availability.label} dot={availability.dot} />
-
-      <p
-        className="mt-7 flex items-center justify-center gap-2 text-base text-ng-text2 animate-fadeUp"
-        style={{ animationDelay: "0.05s" }}
-      >
-        <span className="inline-block origin-[70%_80%] animate-wave text-xl" aria-hidden>
-          👋
-        </span>
-        {profile.greeting}
-      </p>
-
-      <h1
-        className="relative z-[1] mb-5 mt-2.5 text-[clamp(2rem,6vw,2.875rem)] font-semibold leading-[1.08] tracking-[-0.04em] animate-fadeUp"
-        style={{ animationDelay: "0.15s" }}
-      >
-        {profile.name}.
-        <br />
-        <span className="text-ng-muted-l">{profile.tagline}</span>
-      </h1>
-
-      <p
-        className="mb-[18px] text-xs italic tracking-wide text-ng-text3 animate-fadeUp"
-        style={{ animationDelay: "0.2s" }}
-      >
-        {profile.role}
-      </p>
-
-      <p
-        className="mx-auto mb-9 max-w-[520px] text-[15px] font-light leading-[1.7] text-ng-text2 animate-fadeUp"
-        style={{ animationDelay: "0.25s" }}
-      >
-        {profile.bio}
-      </p>
-
-      <div
-        className="mb-12 flex flex-wrap items-center justify-center gap-2.5 animate-fadeUp"
-        style={{ animationDelay: "0.3s" }}
-      >
-        <Button onClick={openCv}>
-          <Eye size={15} weight="regular" />
-          View CV
-        </Button>
-        <Button variant="ghost" href={links.github}>
-          <GithubLogo size={15} weight="regular" />
-          GitHub
-        </Button>
-        <Button variant="ghost" href={links.linkedin}>
-          <LinkedinLogo size={15} weight="regular" />
-          LinkedIn
-        </Button>
-      </div>
-
-      <div
-        className="mx-auto max-w-[540px] overflow-hidden rounded-[10px] border border-ng-border2 bg-ng-terminal text-left animate-fadeUp"
-        style={{ animationDelay: "0.4s" }}
-      >
-        <div className="flex items-center gap-1.5 border-b border-ng-border bg-ng-surface px-3.5 py-2.5">
-          <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden />
-          <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden />
-          <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden />
-        </div>
-        <div className="px-[18px] py-4 font-mono text-xs leading-8">
-          <div>
-            <span className="text-ng-text3">~/projects $ </span>
-            <span>git log --oneline --graph</span>
-          </div>
-          {terminal.commits.map((commit) => (
-            <span
-              key={commit.hash}
-              className={`block ${commit.type === "out2" ? "text-ng-terminal-out2" : "text-ng-terminal-out"}`}
-            >
-              * {commit.hash} {commit.msg}
+    <section
+      id="top"
+      aria-label="Intro"
+      className="mx-auto max-w-[920px] px-6 pb-24 pt-16 sm:pt-24"
+    >
+      <div className="max-w-[680px]">
+        <h1 className="font-hand text-[40px] font-normal leading-[1.3] tracking-[0.01em] sm:text-[54px]">
+          <span className="sr-only">{fullTitle}</span>
+          {/* Letters are written one by one; clicking the line writes it again. */}
+          <span
+            aria-hidden="true"
+            onClick={replay}
+            title="click to write it again"
+            className="relative inline-block cursor-pointer select-none"
+          >
+            {/* Invisible copy reserves the final size so nothing shifts while writing. */}
+            <span className="invisible">
+              {prefix}
+              {profile.nickname}
             </span>
+            <span className="absolute inset-0">
+              {typedPrefix}
+              {typedName && (
+                <span className="relative inline-block">
+                  <motion.span
+                    className="absolute -inset-x-2 bottom-[10%] top-[22%] origin-left rounded-[3px] bg-nb-hl2"
+                    style={{ rotate: -1.5 }}
+                    initial={reduce ? false : { scaleX: 0 }}
+                    animate={{ scaleX: done ? 1 : 0 }}
+                    transition={{ duration: done ? 0.5 : 0.15, ease: EASE }}
+                  />
+                  <span className="relative">{typedName}</span>
+                  <Squiggle
+                    className="absolute -bottom-1.5 -left-1 h-3 w-[calc(100%+8px)]"
+                    active={done}
+                    delay={done ? 0.35 : 0}
+                  />
+                </span>
+              )}
+              {!done && (
+                <PencilSimple
+                  size={22}
+                  weight="bold"
+                  className="ml-1 inline-block animate-scribble align-baseline text-nb-ink2"
+                />
+              )}
+            </span>
+          </span>
+        </h1>
+
+        <motion.div
+          className="mt-3 flex flex-wrap items-center gap-3.5"
+          {...fadeUp(reduce, 0.7)}
+        >
+          <span className="-rotate-[0.5deg] font-hand text-[17px] text-nb-ink2 sm:text-[19px]">
+            {profile.role}
+          </span>
+          {!reduce && (
+            <button
+              type="button"
+              onClick={replay}
+              aria-label="Write the greeting again"
+              title="write it again"
+              className={cn(
+                "-ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full text-nb-ink3 transition-all duration-300 hover:bg-nb-hl1 hover:text-nb-ink",
+                done ? "opacity-100" : "pointer-events-none opacity-0"
+              )}
+            >
+              <ArrowCounterClockwise size={15} />
+            </button>
+          )}
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-nb-rule bg-nb-chip px-3 py-1.5 font-mono text-[11px] text-nb-ink2">
+            <PulseDot />
+            {availability.badge}
+          </span>
+        </motion.div>
+
+        <div className="mt-8 flex max-w-[640px] flex-col gap-3.5 font-mono text-[13px] leading-[1.95] text-nb-ink2 sm:text-[13.5px]">
+          {paragraphs.map((p, i) => (
+            <motion.div key={p.text} {...fadeUp(reduce, 0.9 + i * 0.12)}>
+              <HighlightText
+                text={p.text}
+                startIndex={p.start}
+                delay={reduce ? 0 : 1.3 + i * 0.25}
+              />
+            </motion.div>
           ))}
-          <div>
-            <span className="text-ng-text3">~/projects $ </span>
-            <span className="animate-termBlink">▌</span>
-          </div>
         </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-2.5">
+          <motion.span
+            className="mr-1 -rotate-2 font-hand text-sm text-nb-ink3"
+            {...fadeUp(reduce, 1.35)}
+          >
+            {hero.socialsLabel}
+          </motion.span>
+          {hero.socials.map((social, i) => {
+            const Icon = ICONS[social.icon] ?? FileText;
+            // The outer span handles the staggered entrance; the chip itself
+            // keeps its tilt and straightens on hover without inheriting the delay.
+            const chipProps = {
+              style: { rotate: TILTS[i % TILTS.length] },
+              whileHover: { rotate: 0, y: -3 },
+              whileTap: { scale: 0.96 },
+              transition: { type: "spring", stiffness: 380, damping: 20 },
+              className: chipClass,
+            };
+            const content = (
+              <>
+                <Icon size={15} aria-hidden="true" />
+                <span className="font-hand text-[15px]">{social.label}</span>
+              </>
+            );
+            const external =
+              social.href && isExternalHref(social.href) && !social.href.startsWith("mailto:");
+
+            return (
+              <motion.span
+                key={social.label}
+                className="inline-flex"
+                {...fadeUp(reduce, 1.45 + i * 0.08)}
+              >
+                {social.action === "cv" ? (
+                  <motion.button type="button" onClick={openCv} {...chipProps}>
+                    {content}
+                  </motion.button>
+                ) : (
+                  <motion.a
+                    href={social.href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    {...chipProps}
+                  >
+                    {content}
+                  </motion.a>
+                )}
+              </motion.span>
+            );
+          })}
+        </div>
+
+        {!reduce && hero.doodleHint && (
+          <motion.p
+            className="mt-6 hidden items-center gap-2 font-hand text-[13px] text-nb-ink3 md:flex [@media(pointer:coarse)]:hidden"
+            {...fadeUp(reduce, 2)}
+          >
+            <PencilSimple size={14} aria-hidden="true" />
+            {hero.doodleHint}
+          </motion.p>
+        )}
       </div>
-    </header>
+    </section>
   );
 }

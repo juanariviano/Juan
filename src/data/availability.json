@@ -1,0 +1,22 @@
+{
+  "open": {
+    "badge": "open to internships & freelance",
+    "fact": "Internships, freelance and collaborations",
+    "cta": "Open to internships, freelance projects, and interesting conversations."
+  },
+  "intern": {
+    "badge": "currently interning",
+    "fact": "Internship in progress · limited availability",
+    "cta": "Currently on an internship, but happy to connect and chat about tech."
+  },
+  "working": {
+    "badge": "currently working",
+    "fact": "Employed full-time · limited availability",
+    "cta": "Currently working, but happy to connect and chat about tech."
+  },
+  "closed": {
+    "badge": "not available right now",
+    "fact": "Not actively looking · happy to stay in touch",
+    "cta": "Not seeking new roles at the moment, but feel free to reach out."
+  }
+}

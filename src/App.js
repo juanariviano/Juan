@@ -1,24 +1,24 @@
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
-import Marquee from "./components/Marquee";
-import Stats from "./components/Stats";
-import About from "./components/About";
 import Experience from "./components/Experience";
-import Project from "./components/Project";
+import Projects from "./components/Projects";
+import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import WallDecor from "./components/WallDecor";
+import PencilCursor from "./components/PencilCursor";
 
 function App() {
   return (
-    <div className="min-h-[100dvh] w-full bg-ng-bg text-ng-fg transition-colors duration-200">
+    <div className="paper-bg relative min-h-[100dvh] w-full overflow-x-clip text-nb-ink">
+      <WallDecor />
+      <PencilCursor />
       <Navigation />
-      <main>
+      <main className="relative z-[1]">
         <Hero />
-        <Marquee />
-        <Stats />
-        <About />
         <Experience />
-        <Project />
+        <Projects />
+        <About />
         <Contact />
       </main>
       <Footer />

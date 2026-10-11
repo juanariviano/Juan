@@ -1,0 +1,43 @@
+{
+  "section": {
+    "number": "03",
+    "eyebrow": "about",
+    "title": "curious by nature, builder by habit."
+  },
+  "stats": {
+    "title": "by the numbers",
+    "items": [
+      { "value": 5, "suffix": "", "label": "projects shipped" },
+      { "value": 10, "suffix": "+", "label": "tech stacks used" },
+      { "value": 2, "suffix": "+", "label": "years coding" }
+    ]
+  },
+  "facts": [
+    { "label": "currently", "value": "Studying computer science at Binus · building side projects" },
+    { "label": "based in", "value": "Jakarta, Indonesia · remote-friendly" },
+    { "label": "open to", "value": "", "fromAvailability": true },
+    { "label": "good at", "value": "Full-stack development · team leadership · learning fast · problem solving" },
+    { "label": "learning", "value": "" }
+  ],
+  "toolbox": {
+    "title": "the toolbox ↴",
+    "items": [
+      "TypeScript",
+      "React",
+      "Node.js",
+      "Python",
+      "PostgreSQL",
+      "Tailwind",
+      "Flask",
+      "Supabase",
+      "Clerk",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "EJS",
+      "N8N",
+      "Motoko",
+      "Machine Learning"
+    ]
+  }
+}

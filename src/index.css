@@ -5,67 +5,58 @@
 @layer base {
   :root {
     color-scheme: light;
-    --ng-bg: #f5f5f5;
-    --ng-bg2: #ebebeb;
-    --ng-bg3: #e0e0e0;
-    --ng-fg: #0a0a0a;
-    --ng-text2: rgba(0, 0, 0, 0.55);
-    --ng-text3: rgba(0, 0, 0, 0.38);
-    --ng-border: rgba(0, 0, 0, 0.08);
-    --ng-border2: rgba(0, 0, 0, 0.14);
-    --ng-terminal: #ececec;
-    --ng-muted: #737373;
-    --ng-muted-l: #525252;
-    --ng-accent: #0a0a0a;
-    --ng-accent-fg: #fafafa;
-    --ng-surface: rgba(0, 0, 0, 0.04);
-    --ng-surface-hover: rgba(0, 0, 0, 0.07);
-    --ng-grid: rgba(0, 0, 0, 0.07);
-    --ng-grid-subtle: rgba(0, 0, 0, 0.05);
-    --ng-glow: rgba(0, 0, 0, 0.05);
-    --ng-terminal-out: #525252;
-    --ng-terminal-out2: #0a0a0a;
-    --ng-badge-dot-light: #0a0a0a;
-    --ng-badge-dot-mid: #737373;
-    --ng-badge-dot-muted: #a3a3a3;
-    --ng-nav-bg: rgba(245, 245, 245, 0.9);
+    --nb-paper: #f7f7f7;
+    --nb-ink: #111111;
+    --nb-ink2: #3f3f3f;
+    --nb-ink3: #6b6b6b;
+    --nb-line: rgba(0, 0, 0, 0.06);
+    --nb-margin: rgba(0, 0, 0, 0.1);
+    --nb-card: #ffffff;
+    --nb-chip: #ffffff;
+    --nb-rule: rgba(0, 0, 0, 0.13);
+    --nb-tape: rgba(190, 190, 190, 0.55);
+    --nb-nav: rgba(247, 247, 247, 0.85);
+    --nb-hl1: #e6e6e6;
+    --nb-hl2: #d4d4d4;
+    --nb-sticky: #ebebeb;
+    --nb-poster: #e4e4e4;
+    --nb-shadow: rgba(0, 0, 0, 0.2);
   }
 
   .dark {
     color-scheme: dark;
-    --ng-bg: #0a0a0a;
-    --ng-bg2: #111111;
-    --ng-bg3: #181818;
-    --ng-fg: #fafafa;
-    --ng-text2: rgba(255, 255, 255, 0.55);
-    --ng-text3: rgba(255, 255, 255, 0.35);
-    --ng-border: rgba(255, 255, 255, 0.08);
-    --ng-border2: rgba(255, 255, 255, 0.14);
-    --ng-terminal: #050505;
-    --ng-muted: #a3a3a3;
-    --ng-muted-l: #d4d4d4;
-    --ng-accent: #fafafa;
-    --ng-accent-fg: #0a0a0a;
-    --ng-surface: rgba(255, 255, 255, 0.04);
-    --ng-surface-hover: rgba(255, 255, 255, 0.07);
-    --ng-grid: rgba(255, 255, 255, 0.08);
-    --ng-grid-subtle: rgba(255, 255, 255, 0.03);
-    --ng-glow: rgba(255, 255, 255, 0.07);
-    --ng-terminal-out: #a3a3a3;
-    --ng-terminal-out2: #fafafa;
-    --ng-badge-dot-light: #fafafa;
-    --ng-badge-dot-mid: #a3a3a3;
-    --ng-badge-dot-muted: #525252;
-    --ng-nav-bg: rgba(10, 10, 10, 0.9);
+    --nb-paper: #0e0e0e;
+    --nb-ink: #f2f2f2;
+    --nb-ink2: #c4c4c4;
+    --nb-ink3: #959595;
+    --nb-line: rgba(255, 255, 255, 0.05);
+    --nb-margin: rgba(255, 255, 255, 0.08);
+    --nb-card: #171717;
+    --nb-chip: #1a1a1a;
+    --nb-rule: rgba(255, 255, 255, 0.13);
+    --nb-tape: rgba(255, 255, 255, 0.16);
+    --nb-nav: rgba(14, 14, 14, 0.82);
+    --nb-hl1: rgba(255, 255, 255, 0.12);
+    --nb-hl2: rgba(255, 255, 255, 0.22);
+    --nb-sticky: #242424;
+    --nb-poster: #1f1f1f;
+    --nb-shadow: rgba(0, 0, 0, 0.6);
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
   }
 
   body {
-    @apply bg-ng-bg text-ng-fg antialiased font-sans transition-colors duration-200;
+    @apply bg-nb-paper text-nb-ink antialiased font-sans;
     margin: 0;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  ::selection {
+    background: var(--nb-ink);
+    color: var(--nb-paper);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -83,43 +74,102 @@
   }
 }
 
-@layer utilities {
-  .section-px {
-    @apply px-7 sm:px-12 lg:px-20 xl:px-28 2xl:px-36;
-  }
-
-  .grid-bg {
+@layer components {
+  /* Notebook page: faint ruled lines plus a double margin rule on the left. */
+  .paper-bg {
+    background-color: var(--nb-paper);
     background-image:
-      linear-gradient(var(--ng-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--ng-grid) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(
+        90deg,
+        transparent 71px,
+        var(--nb-margin) 71px,
+        var(--nb-margin) 72px,
+        transparent 72px,
+        transparent 75px,
+        var(--nb-margin) 75px,
+        var(--nb-margin) 76px,
+        transparent 76px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 35px,
+        var(--nb-line) 35px,
+        var(--nb-line) 36px
+      );
+    background-attachment: fixed;
   }
 
-  .grid-bg-subtle {
-    background-image:
-      linear-gradient(var(--ng-grid-subtle) 1px, transparent 1px),
-      linear-gradient(90deg, var(--ng-grid-subtle) 1px, transparent 1px);
-    background-size: 40px 40px;
+  @media (max-width: 640px) {
+    .paper-bg {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 35px,
+        var(--nb-line) 35px,
+        var(--nb-line) 36px
+      );
+    }
   }
 
-  .hero-glow {
-    background: radial-gradient(
-      ellipse,
-      var(--ng-glow) 0%,
-      transparent 68%
+  .tape {
+    @apply pointer-events-none absolute block;
+    background: var(--nb-tape);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+  }
+
+  .hatch {
+    background: repeating-linear-gradient(
+      135deg,
+      transparent 0 9px,
+      var(--nb-rule) 9px 10px
     );
   }
 
-  .cta-glow {
-    background: radial-gradient(
-      ellipse,
-      var(--ng-glow) 0%,
-      transparent 70%
-    );
+  /* Highlighter marks: the swipe draws in when .is-on is added. */
+  .nb-mark {
+    color: var(--nb-ink);
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 2px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition:
+      background-size 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+      color 0.35s ease;
+  }
+
+  .nb-mark-1 {
+    background-image: linear-gradient(var(--nb-hl1), var(--nb-hl1));
+  }
+
+  .nb-mark-2 {
+    background-image: linear-gradient(var(--nb-hl2), var(--nb-hl2));
+  }
+
+  .nb-mark-3 {
+    background-image: linear-gradient(var(--nb-ink), var(--nb-ink));
+  }
+
+  .nb-mark.is-on {
+    background-size: 100% 100%;
+  }
+
+  .nb-mark-3.is-on {
+    color: var(--nb-paper);
+  }
+
+  .dymo {
+    @apply inline-block rounded-[3px] bg-nb-ink px-3 py-2 font-mono text-[11.5px] uppercase tracking-[0.12em] text-nb-paper;
+    box-shadow: 0 2px 0 var(--nb-shadow);
   }
 
   .readme-prose {
-    @apply text-sm leading-relaxed text-ng-text2;
+    @apply text-sm leading-relaxed text-nb-ink2;
   }
 
   .readme-prose > *:first-child {
@@ -134,7 +184,7 @@
   .readme-prose h2,
   .readme-prose h3,
   .readme-prose h4 {
-    @apply font-semibold tracking-tight text-ng-fg;
+    @apply font-semibold tracking-tight text-nb-ink;
     margin: 1.25em 0 0.5em;
   }
 
@@ -143,10 +193,11 @@
   }
 
   .readme-prose h2 {
-    @apply text-base;
+    @apply text-lg;
   }
 
-  .readme-prose h3 {
+  .readme-prose h3,
+  .readme-prose h4 {
     @apply text-sm;
   }
 
@@ -173,35 +224,99 @@
   }
 
   .readme-prose a {
-    @apply text-ng-fg underline decoration-ng-border2 underline-offset-2 transition-colors hover:decoration-ng-fg;
+    @apply text-nb-ink underline decoration-nb-rule underline-offset-2 transition-colors hover:decoration-nb-ink;
   }
 
   .readme-prose code {
-    @apply rounded bg-ng-terminal px-1.5 py-0.5 font-mono text-[0.85em] text-ng-muted-l;
+    @apply rounded bg-nb-hl1 px-1.5 py-0.5 font-mono text-[0.85em] text-nb-ink;
   }
 
   .readme-prose pre {
-    @apply my-4 overflow-x-auto rounded-lg border border-ng-border2 bg-ng-terminal p-4;
+    @apply my-4 overflow-x-auto rounded-lg border border-nb-rule bg-nb-paper p-4;
   }
 
   .readme-prose pre code {
-    @apply bg-transparent p-0 text-xs leading-relaxed text-ng-muted-l;
+    @apply bg-transparent p-0 text-xs leading-relaxed;
   }
 
   .readme-prose blockquote {
-    @apply my-4 border-l-2 border-ng-muted pl-4 italic text-ng-text3;
+    @apply my-4 border-l-2 border-nb-ink3 pl-4 italic text-nb-ink3;
   }
 
   .readme-prose hr {
-    @apply my-6 border-ng-border;
+    @apply my-6 border-nb-rule;
   }
 
   .readme-prose strong {
-    @apply font-medium text-ng-fg;
+    @apply font-semibold text-nb-ink;
+  }
+
+  /* Inline by default so rows of shields.io badges sit side by side, like on GitHub. */
+  .readme-prose img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    margin: 0.15rem 0.2rem 0.15rem 0;
+  }
+
+  .readme-prose [align="center"] {
+    text-align: center;
+  }
+
+  .readme-prose details {
+    @apply my-3 rounded-lg border border-nb-rule bg-nb-paper px-4 py-2.5;
+  }
+
+  .readme-prose details[open] {
+    @apply pb-3;
+  }
+
+  .readme-prose summary {
+    @apply cursor-pointer select-none py-0.5 font-medium text-nb-ink;
+  }
+
+  .readme-prose details[open] > summary {
+    @apply mb-2 border-b border-dashed border-nb-rule pb-2;
+  }
+
+  .readme-prose kbd {
+    @apply rounded border border-nb-rule bg-nb-paper px-1.5 py-0.5 font-mono text-[0.8em];
+  }
+
+  .readme-prose .readme-alert {
+    @apply my-4 rounded-lg border border-nb-rule bg-nb-paper px-4 py-3 not-italic text-nb-ink2;
+  }
+
+  .readme-prose .readme-alert > :first-child {
+    margin-top: 0;
+  }
+
+  .readme-prose .readme-alert > :last-child {
+    margin-bottom: 0;
+  }
+
+  .readme-prose .readme-alert-title {
+    @apply mb-1 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-nb-ink;
+  }
+
+  .readme-prose .readme-alert-warning,
+  .readme-prose .readme-alert-caution {
+    @apply border-nb-ink;
+  }
+
+  .readme-prose .readme-diagram {
+    @apply my-4 overflow-x-auto rounded-lg border border-nb-rule bg-nb-paper p-4 text-center;
+  }
+
+  .readme-prose .readme-diagram svg {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
   }
 
   .readme-prose .readme-table-wrap {
-    @apply my-4 overflow-x-auto rounded-lg border border-ng-border2;
+    @apply my-4 overflow-x-auto rounded-lg border border-nb-rule;
   }
 
   .readme-prose table {
@@ -209,22 +324,18 @@
   }
 
   .readme-prose thead {
-    @apply bg-ng-surface;
+    @apply bg-nb-paper;
   }
 
   .readme-prose th {
-    @apply border-b border-ng-border2 px-3 py-2.5 font-medium text-ng-fg;
+    @apply border-b border-nb-rule px-3 py-2.5 font-medium text-nb-ink;
   }
 
   .readme-prose td {
-    @apply border-b border-ng-border px-3 py-2.5 align-top text-ng-text2;
+    @apply border-b border-nb-rule px-3 py-2.5 align-top text-nb-ink2;
   }
 
   .readme-prose tbody tr:last-child td {
     @apply border-b-0;
-  }
-
-  .readme-prose tbody tr:hover {
-    @apply bg-ng-surface;
   }
 }
